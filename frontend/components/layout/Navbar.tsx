@@ -51,7 +51,7 @@ export default function Navbar() {
 
           <Link
             href="/dashboard"
-            className="rounded-xl bg-black px-5 py-2.5 font-medium text-white transition hover:bg-gray-900"
+           className="rounded-xl bg-black px-5 py-2.5 font-medium !text-white transition hover:bg-gray-900"
           >
             Get Started
           </Link>
