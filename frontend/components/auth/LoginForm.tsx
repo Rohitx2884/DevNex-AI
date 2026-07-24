@@ -53,7 +53,7 @@ export default function LoginForm() {
 
     setLoading(true);
 
-   try {
+  try {
   const response = await api.post("/auth/login", {
     email,
     password,
@@ -66,20 +66,19 @@ export default function LoginForm() {
     );
   }
 
-  alert(response.data.message || "Login Successful");
+ alert(response.data.message ?? "Login Successful");
 
   router.push("/dashboard");
 } catch (error: any) {
   console.error(error);
 
-  alert(
-    error?.response?.data?.detail ||
-    "Unable to login."
-  );
+ alert(
+  error?.response?.data?.detail ??
+  "Unable to login."
+);
+} finally {
+  setLoading(false);
 }
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
