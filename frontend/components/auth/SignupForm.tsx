@@ -27,13 +27,14 @@ export default function SignupForm() {
       setName("");
       setEmail("");
       setPassword("");
-    } catch (error: any) {
-      if (error.response) {
-        alert(error.response.data.detail);
-      } else {
-        alert("Server Error");
-      }
-    }
+    catch (error: any) {
+  console.error(error);
+
+  alert(
+    error?.response?.data?.detail ||
+    "Server Error"
+  );
+}
   };
 
   return (
