@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import axios from "axios";
+import api from "@/lib/api";
 import {
   Code2,
   Sparkles,
@@ -27,18 +27,20 @@ export default function CodePage() {
     try {
       setLoading(true);
 
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/code/review`,
-        {
-          code,
-        }
-      );
+     const response = await api.post("/code/review", {
+  code,
+});
 
-      setAnalysis(response.data.analysis);
-    } catch (error) {
-      console.error(error);
-      alert("Failed to analyze code.");
-    } finally {
+setAnalysis(response.data.analysis);
+    } catch (error: any) {
+  console.error(error);
+
+  alert(
+    error?.response?.data?.detail ||
+    "Failed to analyze code."
+  );
+}
+    finally {
       setLoading(false);
     }
   };
