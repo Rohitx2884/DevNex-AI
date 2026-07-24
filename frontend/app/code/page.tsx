@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useState } from "react";
 import axios from "axios";
 import {
@@ -29,7 +28,7 @@ export default function CodePage() {
       setLoading(true);
 
       const response = await axios.post(
-       `${process.env.NEXT_PUBLIC_API_URL}/code/review`
+        `${process.env.NEXT_PUBLIC_API_URL}/code/review`,
         {
           code,
         }
@@ -46,13 +45,11 @@ export default function CodePage() {
 
   const copyAnalysis = async () => {
     if (!analysis) return;
-
     await navigator.clipboard.writeText(analysis);
   };
 
   return (
     <main className="min-h-screen bg-[#F6F7FB]">
-
       <div className="mx-auto max-w-7xl px-10 py-10">
 
         {/* Header */}
@@ -62,13 +59,10 @@ export default function CodePage() {
           <div>
 
             <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm">
-
               <Sparkles size={16} />
-
               <span className="text-sm font-semibold">
                 AI Developer Workspace
               </span>
-
             </div>
 
             <h1 className="text-5xl font-bold tracking-tight">
@@ -85,56 +79,36 @@ export default function CodePage() {
           <div className="grid grid-cols-3 gap-4">
 
             <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-
               <ShieldCheck className="mb-3 text-green-600" />
-
-              <h3 className="text-3xl font-bold">
-                AI
-              </h3>
-
+              <h3 className="text-3xl font-bold">AI</h3>
               <p className="text-sm text-gray-500">
                 Secure Review
               </p>
-
             </div>
 
             <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-
               <Bug className="mb-3 text-red-500" />
-
-              <h3 className="text-3xl font-bold">
-                Bug
-              </h3>
-
+              <h3 className="text-3xl font-bold">Bug</h3>
               <p className="text-sm text-gray-500">
                 Detection
               </p>
-
             </div>
 
             <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-
               <Cpu className="mb-3 text-blue-600" />
-
-              <h3 className="text-3xl font-bold">
-                AI
-              </h3>
-
+              <h3 className="text-3xl font-bold">AI</h3>
               <p className="text-sm text-gray-500">
                 Optimization
               </p>
-
             </div>
 
           </div>
 
         </div>
 
-        {/* Workspace */}
-
         <div className="grid gap-8 lg:grid-cols-12">
-
-          {/* Editor */}
+        </div>
+                  {/* Code Editor */}
 
           <div className="lg:col-span-7">
 
@@ -143,13 +117,10 @@ export default function CodePage() {
               <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
 
                 <div className="flex items-center gap-3">
-
                   <Code2 />
-
                   <h2 className="text-xl font-bold">
                     Code Editor
                   </h2>
-
                 </div>
 
                 <button
@@ -158,7 +129,6 @@ export default function CodePage() {
                   className="flex items-center gap-2 rounded-2xl bg-black px-6 py-3 font-semibold text-white transition hover:scale-[1.02] disabled:opacity-50"
                 >
                   <Play size={18} />
-
                   {loading ? "Analyzing..." : "Review Code"}
                 </button>
 
@@ -175,7 +145,7 @@ export default function CodePage() {
 
           </div>
 
-          {/* AI Panel */}
+          {/* AI Review Panel */}
 
           <div className="space-y-6 lg:col-span-5">
 
@@ -184,13 +154,10 @@ export default function CodePage() {
               <div className="mb-8 flex items-center justify-between">
 
                 <div className="flex items-center gap-3">
-
                   <Sparkles />
-
                   <h2 className="text-2xl font-bold">
                     AI Review
                   </h2>
-
                 </div>
 
                 {analysis && (
@@ -232,8 +199,7 @@ export default function CodePage() {
               )}
 
             </div>
-
-            <div className="rounded-[32px] border border-gray-200 bg-white p-8 shadow-sm">
+                        <div className="rounded-[32px] border border-gray-200 bg-white p-8 shadow-sm">
 
               <h3 className="mb-6 text-xl font-bold">
                 AI Checklist
@@ -278,4 +244,3 @@ export default function CodePage() {
     </main>
   );
 }
-
