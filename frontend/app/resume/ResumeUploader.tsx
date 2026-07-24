@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import axios from "axios";
+import api from "@/lib/api";
 import { UploadCloud } from "lucide-react";
 
 interface Props {
@@ -27,16 +27,15 @@ export default function ResumeUploader({
     setLoading(true);
 
     try {
-      const res = await axios.post(
-        "http://127.0.0.1:8000/resume/analyze",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
+      const res = await api.post(
+  "/resume/analyze",
+  formData,
+  {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  }
+);
       onAnalysisComplete(res.data);
 
     } catch (err) {

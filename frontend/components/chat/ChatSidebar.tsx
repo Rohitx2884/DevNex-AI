@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import axios from "axios";
+import api from "@/lib/api";
 import {
   Clock3,
   MessageSquare,
@@ -40,10 +40,7 @@ export default function ChatSidebar({
 
   const loadChats = async () => {
     try {
-      const res = await axios.get(
-        "http://127.0.0.1:8000/history/"
-      );
-
+      const res = await api.get("/history/");
       setChats(res.data);
     } catch (err) {
       console.error(err);
@@ -52,9 +49,7 @@ export default function ChatSidebar({
 
   const deleteConversation = async (id: number) => {
     try {
-      await axios.delete(
-        `http://127.0.0.1:8000/history/${id}`
-      );
+      await api.delete(`/history/${id}`);
 
       setChats((prev) =>
   prev.filter((chat) => chat.id !== id)

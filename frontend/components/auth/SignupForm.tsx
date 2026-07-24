@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import axios from "axios";
+import api from "@/lib/api";
 import Link from "next/link";
 
 import { Card } from "@/components/ui/card";
@@ -16,14 +16,11 @@ export default function SignupForm() {
 
   const handleSignup = async () => {
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/auth/register",
-        {
-          name,
-          email,
-          password,
-        }
-      );
+      const response = await api.post("/auth/register", {
+  name,
+  email,
+  password,
+});
 
       alert(response.data.message);
 

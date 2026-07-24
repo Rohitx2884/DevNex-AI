@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
+import api from "@/lib/api";
 
 import ChatSidebar from "@/components/chat/ChatSidebar";
 import ChatHeader from "@/components/chat/ChatHeader";
@@ -37,9 +37,7 @@ export default function ChatPage() {
     id: number
   ) => {
     try {
-      const res = await axios.get(
-        `http://127.0.0.1:8000/history/${id}`
-      );
+      const res = await api.get(`/history/${id}`);
 
       const formatted: Message[] = res.data.messages.map(
   (message: {

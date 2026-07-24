@@ -29,7 +29,7 @@ export default function CodePage() {
       setLoading(true);
 
       const response = await axios.post(
-        "http://127.0.0.1:8000/code/review",
+       `${process.env.NEXT_PUBLIC_API_URL}/code/review`
         {
           code,
         }
