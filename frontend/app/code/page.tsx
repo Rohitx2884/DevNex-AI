@@ -107,8 +107,7 @@ export default function CodePage() {
         </div>
 
         <div className="grid gap-8 lg:grid-cols-12">
-        </div>
-                  {/* Code Editor */}
+                    {/* Code Editor */}
 
           <div className="lg:col-span-7">
 

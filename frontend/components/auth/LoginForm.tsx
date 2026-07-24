@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import axios from "axios";
+import api from "@/lib/api";
 
 import {
   motion,
@@ -53,34 +53,30 @@ export default function LoginForm() {
 
     setLoading(true);
 
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
-        {
-          email,
-          password,
-        }
-      );
+   try {
+  const response = await api.post("/auth/login", {
+    email,
+    password,
+  });
 
-      if (response.data.user) {
-        localStorage.setItem(
-          "user",
-          JSON.stringify(response.data.user)
-        );
-      }
+  if (response.data.user) {
+    localStorage.setItem(
+      "user",
+      JSON.stringify(response.data.user)
+    );
+  }
 
-      alert(response.data.message || "Login Successful");
+  alert(response.data.message || "Login Successful");
 
-      router.push("/dashboard");
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        alert(
-          error.response?.data?.detail ??
-            "Unable to login."
-        );
-      } else {
-        alert("Something went wrong.");
-      }
+  router.push("/dashboard");
+} catch (error: any) {
+  console.error(error);
+
+  alert(
+    error?.response?.data?.detail ||
+    "Unable to login."
+  );
+}
     } finally {
       setLoading(false);
     }
