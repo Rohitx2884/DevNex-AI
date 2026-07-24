@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import api from "@/lib/api";
 import Link from "next/link";
+import api from "@/lib/api";
 
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,26 +15,31 @@ export default function SignupForm() {
   const [password, setPassword] = useState("");
 
   const handleSignup = async () => {
+    if (!name.trim() || !email.trim() || !password.trim()) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
     try {
       const response = await api.post("/auth/register", {
-  name,
-  email,
-  password,
-});
+        name,
+        email,
+        password,
+      });
 
-      alert(response.data.message);
+      alert(response.data.message || "Account created successfully.");
 
       setName("");
       setEmail("");
       setPassword("");
-    catch (error: any) {
-  console.error(error);
+    } catch (error: any) {
+      console.error(error);
 
-  alert(
-    error?.response?.data?.detail ||
-    "Server Error"
-  );
-}
+      alert(
+        error?.response?.data?.detail ||
+          "Server Error. Please try again."
+      );
+    }
   };
 
   return (
@@ -87,7 +92,7 @@ export default function SignupForm() {
 
         <Button
           onClick={handleSignup}
-          className="w-full h-11"
+          className="h-11 w-full"
         >
           Create Account
         </Button>
@@ -95,7 +100,6 @@ export default function SignupForm() {
 
       <p className="mt-8 text-center text-sm text-gray-500">
         Already have an account?
-
         <Link
           href="/login"
           className="ml-1 font-semibold text-black"
