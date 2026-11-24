@@ -21,22 +21,28 @@ Base.metadata.create_all(bind=engine)
 # =====================================
 
 app = FastAPI(
-    title="DevNex AI API",
-    description="AI-powered backend for DevNex AI",
+    title="DevNex AI Backend",
     version="3.0.0",
 )
 
 # =====================================
-# CORS
+# CORS Configuration
 # =====================================
+
+origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+
+    # AWS Amplify Frontend
+    "https://main.d2uudqe8nwj29y.amplifyapp.com",
+
+    # Optional (useful while testing)
+    "https://pummel-collide-geiger.ngrok-free.dev",
+]
 
 app.add_middleware(
     CORSMiddleware,
-   allow_origins=[
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "https://main.d2kgh4jifg13kp.amplifyapp.com",
-],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -54,11 +60,11 @@ app.include_router(code_router)
 app.include_router(notification_router)
 
 # =====================================
-# Root
+# Root Endpoint
 # =====================================
 
 @app.get("/")
-async def root():
+def root():
     return {
         "success": True,
         "message": "🚀 Welcome to DevNex AI Backend",
@@ -71,9 +77,9 @@ async def root():
 # =====================================
 
 @app.get("/health")
-async def health():
+def health():
     return {
-        "success": True,
         "status": "healthy",
-        "message": "Backend is running successfully",
+        "backend": "running",
+        "version": "3.0.0",
     }
